@@ -1,8 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', 'root','login');
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+require_once('config/connection.php');
 if($_POST){
 if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password'])){
   $email=$_POST['email'];
@@ -10,7 +7,12 @@ if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']
   $user_detail="SELECT * FROM users WHERE email='".$email."' AND password='".md5($password)."' AND status='1'";
   $sql=mysqli_query($conn, $user_detail);
 if (mysqli_num_rows($sql)) {
- header("Location: dashboard.php");
+while($row=mysqli_fetch_assoc($sql)){
+$_SESSION['admin_user']=$row;
+header("Location: dashboard.php");
+die;
+}
+
 } else {
   echo "<script>alert('user not found!.')</script>";
 }
