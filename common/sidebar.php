@@ -8,9 +8,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="manage_users.php">
               <span data-feather="file"></span>
-              Orders
+              Manage Users
             </a>
           </li>
           <li class="nav-item">
