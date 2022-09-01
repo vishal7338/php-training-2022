@@ -35,6 +35,7 @@ require_once('library/manage_user_lib.php');
       <th scope="col">ID</th>
       <th scope="col">Email</th>
       <th scope="col">status</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -45,6 +46,7 @@ require_once('library/manage_user_lib.php');
       <td><?php echo $value['id']; ?> </td>
       <td><?php echo $value['email']; ?> </td>
       <td><?php echo ($value['status'] == 1)?'<span class="badge bg-success">Active</span>':'<span class="badge bg-danger">Inactive</span>'; ?> </td>
+      <td><a href="add_user.php?user_id=<?php echo $value['id']; ?>">Edit</a></td>
     </tr>
     <?php } ?>
   </tbody>
