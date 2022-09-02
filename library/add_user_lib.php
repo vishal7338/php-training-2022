@@ -57,7 +57,9 @@ if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']
 $email=$_POST['email'];
 $password=md5($_POST['password']);
 $status=$_POST['status'];
-$sql="INSERT INTO users (email,password,status,date_added) VALUES ('".$email."','".$password."','".$status."',NOW())";
+$sql="INSERT INTO users (email,password,status) VALUES ('".$email."','".$password."','".$status."')";
+// echo $sql;
+// die;
 $res=mysqli_query($conn,$sql);
 addAlert('success','User successfully added!.');
 }

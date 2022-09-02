@@ -29,6 +29,7 @@ require_once('library/manage_user_lib.php');
         <?php echo displayAlert(); ?>
 <table class="table">
   <thead>
+   
     <tr>
       <th scope="col"><input type="checkbox" class="form-check-input" onclick="$('.chk').prop('checked',$(this).is(':checked'))"></th>
       <th scope="col">S.no.</th>
@@ -36,6 +37,19 @@ require_once('library/manage_user_lib.php');
       <th scope="col">Email</th>
       <th scope="col">status</th>
       <th scope="col">Action</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th><input type="text" class="form-control" id="filter_user_id" value="<?php echo $filter_user_id; ?>"></th>
+      <th><input type="text" class="form-control" id="filter_email" value="<?php echo $filter_email; ?>"></th>
+      <th> <select id="filter_status" class="form-select" name="filter_status">
+      <option value=''>select status</option>
+      <option value="0" <?php echo ($filter_status === '0')?'selected':'' ?>>Inactive</option>
+      <option value="1" <?php echo ($filter_status == 1)?'selected':'' ?>>Active</option>
+    </select></th>
+      <th><button type="button" class="btn btn-primary" id="btnFilter">Search</button><a href="manage_users.php" class="btn btn-warning" >Reset</a></th>
+
     </tr>
   </thead>
   <tbody>
@@ -46,7 +60,7 @@ require_once('library/manage_user_lib.php');
       <td><?php echo $value['id']; ?> </td>
       <td><?php echo $value['email']; ?> </td>
       <td><?php echo ($value['status'] == 1)?'<span class="badge bg-success">Active</span>':'<span class="badge bg-danger">Inactive</span>'; ?> </td>
-      <td><a href="add_user.php?user_id=<?php echo $value['id']; ?>">Edit</a></td>
+      <td><a href="add_user.php?user_id=<?php echo $value['id']; ?>">Edit</a> | <a href="manage_users.php?user_id=<?php echo $value['id']; ?>">Delete</a></td>
     </tr>
     <?php } ?>
   </tbody>
@@ -61,4 +75,23 @@ require_once('library/manage_user_lib.php');
 </div>
 </div>
 <?php require_once('common/footer_script.php'); ?>
+<script>
+$('#btnFilter').click(function(){
+  var url='manage_users.php?';
+  var filter_user_id=$('#filter_user_id').val();
+  if(filter_user_id != ''){
+    url+='&filter_user_id='+filter_user_id;
+  }
+  var filter_status=$('#filter_status').val();
+  if(filter_status != ''){
+    url+='&filter_status='+filter_status;
+  }
+  var filter_email=$('#filter_email').val();
+  if(filter_email != ''){
+    url+='&filter_email='+filter_email;
+  }
+window.location.href=url;
+})
+
+</script>
 <?php require_once('common/footer.php'); ?>
