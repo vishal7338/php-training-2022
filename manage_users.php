@@ -33,7 +33,7 @@ require_once('library/manage_user_lib.php');
     <tr>
       <th scope="col"><input type="checkbox" class="form-check-input" onclick="$('.chk').prop('checked',$(this).is(':checked'))"></th>
       <th scope="col">S.no.</th>
-      <th scope="col">ID</th>
+      <th scope="col"><a href="manage_users.php?sort=id&order=<?php echo $order; ?>">ID <i class="bi bi-caret-<?php echo ($order=='ASC')?'down':'up' ?>-fill"></i></a></th>
       <th scope="col">Email</th>
       <th scope="col">status</th>
       <th scope="col">Action</th>
@@ -65,7 +65,28 @@ require_once('library/manage_user_lib.php');
     <?php } ?>
   </tbody>
 </table>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    <?php for($i=1;$i<=$total_page;$i++){ ?>
+      <?php if($i == $page){ ?>
+    <li class="page-item active"><a class="page-link " href="manage_users.php?page=<?php echo $i;?>"><?php echo $i; ?></a></li>
+    <?php }else{ ?>
+
+      <li class="page-item" aria-current="page">
+      <a class="page-link" href="manage_users.php?page=<?php echo $i;?>"><?php echo $i; ?></a>
+    </li>
+      <?php } ?>
+    <?php }?>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
 </div>
+
     </form>
     </main>
 
