@@ -33,9 +33,10 @@ require_once('library/manage_user_lib.php');
     <tr>
       <th scope="col"><input type="checkbox" class="form-check-input" onclick="$('.chk').prop('checked',$(this).is(':checked'))"></th>
       <th scope="col">S.no.</th>
-      <th scope="col"><a href="manage_users.php?sort=id&order=<?php echo $order; ?>">ID <i class="bi bi-caret-<?php echo ($order=='ASC')?'down':'up' ?>-fill"></i></a></th>
+      <th scope="col"><a href="manage_users.php?page=<?php echo $page; ?><?php echo $filter_url; ?>&sort=id&order=<?php echo $order; ?>">ID <i class="bi bi-caret-<?php echo ($order=='ASC')?'down':'up' ?>-fill"></i></a></th>
       <th scope="col">Email</th>
       <th scope="col">status</th>
+      <th scope="col">Date added</th>
       <th scope="col">Action</th>
     </tr>
     <tr>
@@ -48,6 +49,7 @@ require_once('library/manage_user_lib.php');
       <option value="0" <?php echo ($filter_status === '0')?'selected':'' ?>>Inactive</option>
       <option value="1" <?php echo ($filter_status == 1)?'selected':'' ?>>Active</option>
     </select></th>
+    <th></th>
       <th><button type="button" class="btn btn-primary" id="btnFilter">Search</button><a href="manage_users.php" class="btn btn-warning" >Reset</a></th>
 
     </tr>
@@ -60,6 +62,7 @@ require_once('library/manage_user_lib.php');
       <td><?php echo $value['id']; ?> </td>
       <td><?php echo $value['email']; ?> </td>
       <td><?php echo ($value['status'] == 1)?'<span class="badge bg-success">Active</span>':'<span class="badge bg-danger">Inactive</span>'; ?> </td>
+      <td><?php echo date('d-m-Y H:i:s a',strtotime($value['date_added'])); ?></td>
       <td><a href="add_user.php?user_id=<?php echo $value['id']; ?>">Edit</a> | <a href="manage_users.php?user_id=<?php echo $value['id']; ?>">Delete</a></td>
     </tr>
     <?php } ?>
@@ -67,8 +70,8 @@ require_once('library/manage_user_lib.php');
 </table>
 <nav aria-label="...">
   <ul class="pagination">
-    <li class="page-item disabled">
-      <span class="page-link">Previous</span>
+    <li class="page-item <?php echo ($page == 1)?'disabled':'' ?>">
+    <a class="page-link" href="manage_users.php?page=<?php echo ($page - 1); ?>">Previous</a>
     </li>
     <?php for($i=1;$i<=$total_page;$i++){ ?>
       <?php if($i == $page){ ?>
@@ -80,8 +83,8 @@ require_once('library/manage_user_lib.php');
     </li>
       <?php } ?>
     <?php }?>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
+    <li class="page-item <?php echo ($page == $total_page)?'disabled':'' ?>">
+      <a class="page-link" href="manage_users.php?page=<?php echo ($page + 1); ?>">Next</a>
     </li>
   </ul>
 </nav>

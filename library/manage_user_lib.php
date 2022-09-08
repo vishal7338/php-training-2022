@@ -24,10 +24,12 @@ if($_POST){
 }
 $sort="id";
 $order="ASC";
+$filter_url='';
 $searching=' WHERE 1=1 ';
 if(isset($_GET['filter_user_id']) && !empty($_GET['filter_user_id'])){
   $filter_user_id=$_GET['filter_user_id'];
   $searching.="AND id='".$filter_user_id."'";
+  $filter_url.='&filter_user_id='.$filter_user_id;
 }
 if(isset($_GET['filter_email']) && !empty($_GET['filter_email'])){
   $filter_email=$_GET['filter_email'];
@@ -46,6 +48,7 @@ $order=$_GET['order'];
 $page_size=1;
 $page=1;
 $page_index=0;
+
 $count="SELECT count(*) as total FROM users ".$searching;
 $res_count=mysqli_query($conn,$count);
 $rec_total=mysqli_fetch_assoc($res_count);
