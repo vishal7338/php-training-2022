@@ -35,6 +35,11 @@ if(isset($_GET['filter_email']) && !empty($_GET['filter_email'])){
   $filter_email=$_GET['filter_email'];
   $searching.="AND email LIKE '%".$filter_email."%'";
 }
+if(isset($_GET['filter_date_added']) && !empty($_GET['filter_date_added'])){
+  $filter_date_added=$_GET['filter_date_added'];
+  $searching.="AND date_added BETWEEN '".$filter_date_added." 00:00:00' AND '".$filter_date_added." 23:59:59'";
+}
+
 if(isset($_GET['filter_status'])){
   $filter_status=$_GET['filter_status'];
   $searching.="AND status='".$filter_status."'";

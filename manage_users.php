@@ -49,7 +49,7 @@ require_once('library/manage_user_lib.php');
       <option value="0" <?php echo ($filter_status === '0')?'selected':'' ?>>Inactive</option>
       <option value="1" <?php echo ($filter_status == 1)?'selected':'' ?>>Active</option>
     </select></th>
-    <th></th>
+    <th><input type="date" id="filter_date_added" value="<?php echo $filter_date_added; ?>"></th>
       <th><button type="button" class="btn btn-primary" id="btnFilter">Search</button><a href="manage_users.php" class="btn btn-warning" >Reset</a></th>
 
     </tr>
@@ -113,6 +113,10 @@ $('#btnFilter').click(function(){
   var filter_email=$('#filter_email').val();
   if(filter_email != ''){
     url+='&filter_email='+filter_email;
+  }
+   var filter_date_added=$('#filter_date_added').val();
+  if(filter_date_added != ''){
+    url+='&filter_date_added='+filter_date_added;
   }
 window.location.href=url;
 })

@@ -3,7 +3,7 @@
  $status='';
  $user_id='';
  $password='';
-
+$document_title='Add User';
 if($_GET){
  
     $user_id=$_GET['user_id'];
@@ -13,6 +13,8 @@ if($_GET){
     $row=mysqli_fetch_assoc($res);
     $email=$row['email'];
     $status=$row['status'];
+    $photo=$row['photo'];
+    $document_title='Edit User';
     }
   
   }
@@ -20,22 +22,25 @@ if($_GET){
 
 
 if($_POST){
-if($user_id){
-   
-    $email=$_POST['email'];
-    $status=$_POST['status'];
-    $password=$_POST['password'];
+
+
 //     echo '<pre>';
 //  print_r($_FILES);
 //  echo '</pre>';
 //  die;
     if(isset($_POST['email']) && !empty($_POST['email'])){
-        
+           
+    $email=$_POST['email'];
+ 
+    $status=$_POST['status'];
+    $password=$_POST['password'];
+    if(!alreadyExist($email,$user_id)){
+        if($user_id){
         $sql="UPDATE users SET email='".$email."', status='".$status."' WHERE id='".$user_id."'";
         $res=mysqli_query($conn,$sql);
         addAlert('success','User updated successfully!.');
-        }
-        if(isset($_FILES['photo']) && !empty($_FILES['photo'])){
+        
+        if(isset($_FILES['photo']['name']) && !empty($_FILES['photo']['name'])){
             $filename=time().'_'.$_FILES['photo']['name'];
             $dest='uploads/'.$filename;
             $src=$_FILES['photo']['tmp_name'];
@@ -64,5 +69,19 @@ $res=mysqli_query($conn,$sql);
 addAlert('success','User successfully added!.');
 }
 }
+    }else{
+        addAlert('danger','Email already Exist!.');  
+    }
+}
+}
+function alreadyExist($email,$user_id){
+    global $conn;
+    $sql = "SELECT * FROM users WHERE email='". $email ."' AND id !='". $user_id ."'";
+    $rs = mysqli_query($conn, $sql);
+    if(mysqli_num_rows($rs)){
+        
+        return true;
+    }
+    return false;
 }
 ?>
