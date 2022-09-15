@@ -23,7 +23,8 @@ if($_GET){
 
 if($_POST){
 
-
+    // print_r($_POST);
+    // die;
 //     echo '<pre>';
 //  print_r($_FILES);
 //  echo '</pre>';
@@ -34,7 +35,9 @@ if($_POST){
  
     $status=$_POST['status'];
     $password=$_POST['password'];
+    $confirm_password=$_POST['confirm_password'];
     if(!alreadyExist($email,$user_id)){
+        if($password == $confirm_password){
         if($user_id){
         $sql="UPDATE users SET email='".$email."', status='".$status."' WHERE id='".$user_id."'";
         $res=mysqli_query($conn,$sql);
@@ -69,6 +72,9 @@ $res=mysqli_query($conn,$sql);
 addAlert('success','User successfully added!.');
 }
 }
+        }else{
+            addAlert('danger','Confirm password does  not matched!');  
+        }
     }else{
         addAlert('danger','Email already Exist!.');  
     }

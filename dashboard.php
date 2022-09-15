@@ -4,6 +4,7 @@
 require_once('config/connection.php');
 require_once('common/header.php'); 
 require_once('config/startup.php');
+require_once('library/dashboard_lib.php');
 ?>
   </head>
   <body>

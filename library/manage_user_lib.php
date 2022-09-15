@@ -22,6 +22,7 @@ if($_POST){
     }
   }
 }
+$manage_user_active='active';
 $sort="id";
 $order="ASC";
 $filter_url='';

@@ -7,6 +7,11 @@ require_once('config/startup.php');
 require_once('library/add_user_lib.php');
 
 ?>
+<style>
+  label.error{
+    color:red;
+  }
+</style>
   </head>
   <body>
     
@@ -22,16 +27,20 @@ require_once('library/add_user_lib.php');
 
       <div class="col-md-9">
         <?php echo displayAlert(); ?>
-      <form class="row g-3 shadow p-4 my-3" method="POST" enctype="multipart/form-data">
+      <form class="row g-3 shadow p-4 my-3" method="POST" id="user_form" enctype="multipart/form-data">
 
   <div class="col-md-6">
     <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" name="email" id="inputEmail4" value="<?php echo $email; ?>">
+    <input type="email" class="form-control required" name="email" id="inputEmail4" value="<?php echo $email; ?>">
     
   </div>
   <div class="col-md-6">
     <label for="inputPassword4" class="form-label">Password</label>
     <input type="password" class="form-control" name="password" id="inputPassword4">
+  </div>  
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Confirm Password</label>
+    <input type="password" class="form-control" name="confirm_password" id="inputPassword4">
   </div> 
   <div class="col-md-6">
     <?php if(!empty($photo)){ ?>
@@ -56,9 +65,17 @@ require_once('library/add_user_lib.php');
 </div>
 </main>
 
-
+<!-- Category page => id,category_name,photo,status,sort_order -->
 
 </div>
 </div>
 <?php require_once('common/footer_script.php'); ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script>
+$("#user_form").validate({
+  submitHandler: function(form) {
+    form.submit();
+  }
+});
+</script>
 <?php require_once('common/footer.php'); ?>
